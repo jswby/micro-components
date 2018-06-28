@@ -1,0 +1,8 @@
+<view hidden="{{!isShow}}" animation="{{animationData}}">
+    <view id='wx-keyboard' class='wx-keyboard'>
+        <view class='btnView' wx:for="{{keyboardValues}}" wx:key="{{*this}}">
+            <button style="width:{{keyboardBtnWidth}};" class="keyboard_btn" hover-class='keyboard_btn_hover' keyVal="{{item}}" id="{{item}}" catchtap="_selectKeyEvent" wx:for="{{item}}" wx:key="{{*this}}">{{item}}</button>
+        </view>
+	    <view style='height:20px;' hidden='{{!longScreen}}'></view>
+    </view>
+</view>
