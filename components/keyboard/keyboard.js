@@ -87,7 +87,7 @@ Component({
                 console.log(res);
                 that.setData({
                     keyboardHeight: res.height,
-                    isShow: show
+                    isShow: show ? true : false
                 })
             }).exec()
 
