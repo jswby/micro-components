@@ -57,40 +57,31 @@ Component({
      */
     methods: {
         init: function (ktype, show) {
-            console.log(ktype)
             let that = this;
             let info = wx.getSystemInfoSync();
-            // console.log(info);
-            if (ktype == "english") {
-                that.setData({
-                    // keyboardValues: [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"], ["a", "s", "d", "f", "g", "h", "j", "k", "l"], ["z", "x", "c", "v", "b", "n", "m"], ["🈳", "del", "⬇"]],
-                    keyboardValues: [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"], ["a", "s", "d", "f", "g", "h", "j", "k", "l"], ["z", "x", "c", "v", "b", "n", "m"]],
-                    keyboardBtnWidth: '10vw',
-                    keyboardType: ktype,
-                    isShow: true,
-                    longScreen: parseInt(info.screenHeight) > 800
-                })
-            } else if (ktype == "number") {
-                that.setData({
-                    keyboardValues: [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["0", "del", "⬇"]],
-                    keyboardBtnWidth: '33vw',
-                    keyboardType: ktype,
-                    isShow: true,
-                    longScreen: parseInt(info.screenHeight) > 800
-                })
+            let keyboardBtnWidth = "10vw";
+            let keyboardValues = [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"], ["a", "s", "d", "f", "g", "h", "j", "k", "l"], ["z", "x", "c", "v", "b", "n", "m"]]; //["🈳", "del", "⬇"]
+            if (ktype == "number") {
+                keyboardValues = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["0", "del", "⬇"]];
+                keyboardBtnWidth = "33vw";
             }
 
-            var query = wx.createSelectorQuery().in(this);
-            //选择id
+            that.setData({
+                keyboardValues: keyboardValues,
+                keyboardBtnWidth: keyboardBtnWidth,
+                keyboardType: ktype,
+                isShow: true,
+                longScreen: parseInt(info.screenHeight) > 800
+            })
+
+            let query = wx.createSelectorQuery().in(this);
             query.select('#wx-keyboard').boundingClientRect(function (res) {
-                //res就是 所有标签为mjltest的元素的信息 的数组
-                console.log(res);
+                // console.log(res);
                 that.setData({
                     keyboardHeight: res.height,
                     isShow: show ? true : false
                 })
             }).exec()
-
         },
         //隐藏
         hideKeyboard() {
@@ -130,8 +121,8 @@ Component({
                     this.selectedKeyValue = "space"
                 }
 
-                var myEventDetail = {value: this.selectedKeyValue}
-                var myEventOption = {}
+                let myEventDetail = {value: this.selectedKeyValue}
+                let myEventOption = {}
                 this.triggerEvent('selectKeyEvent', myEventDetail, myEventOption)
             }
         }
